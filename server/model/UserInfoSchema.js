@@ -30,6 +30,10 @@ const userInfoSchema = new Schema({
     type: Number,
     required: true,
   },
+  refreshed_coins: {
+    type: Number,
+    required: true,
+  },
   tenacious: {
     type: Number,
     required: true,

@@ -100,11 +100,31 @@ cron.schedule("0 10 30 * *", () => {
     });
 });
 
-// cron.schedule("0 0 3,6,9,12 *", async () => {
-//   console.log("Noothan");
-// });
+const refreshCoins = async () => {
+  try {
+    const result = await UserSchema.updateMany({}, [
+      {
+        $set: {
+          refreshed_coins: { $add: ["$refreshed_coins", "$total_coins"] },
+          total_coins: 0,
+        },
+      },
+    ]);
+    console.log("Coins Refreshed Successfully!");
+  } catch (err) {
+    console.log("Could'nt Refresh Coins", err);
+  }
+};
 
-app.get("/", (req, res) => {
+cron.schedule("0 0 1 3,6,9,12 *", () => {
+  refreshCoins()
+    .then(() => {
+      console.log("Coins Refreshed Successfully!");
+    })
+    .catch((err) => console.log("Could'nt Refresh Coins", err));
+});
+
+app.get("/", async (req, res) => {
   console.log("Hello World");
   return res.status(200).send("Hello World");
 });
@@ -126,6 +146,7 @@ app.post("/upload", upload.single("image"), async (req, res) => {
     password: req.body.password,
     current_coins: 5,
     total_coins: 0,
+    refreshed_coins: 0,
     tenacious: 0,
     resourceful: 0,
     open_minded: 0,
