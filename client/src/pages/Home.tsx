@@ -9,6 +9,8 @@ import LoadingScreen from "./LoadingScreen";
 import { GoBell } from "react-icons/go";
 import NotificationModal from "../components/NotificationModal";
 import FooterNavbar from "../components/FooterNavbar";
+import { messaging } from "../utils/Firebase";
+import { getToken } from "firebase/messaging";
 
 const styles = require("../styles/myfile.module.css").default;
 const logoImage = require("../assets/images/Group 26943.png");
@@ -43,6 +45,41 @@ const Home = () => {
   let { userId } = useParams();
 
   const navigator = useNavigate();
+
+  useEffect(() => {
+    const requestPermission = async () => {
+      const permission = await Notification.requestPermission();
+      if (permission === "granted") {
+        const token = await getToken(messaging, {
+          vapidKey: process.env.REACT_APP_VAPID_KEY,
+        });
+        console.log("Notification permission granted.", token);
+        try {
+          const response = await fetch(
+            `${process.env.REACT_APP_API_URL}/save-token`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*",
+              },
+              body: JSON.stringify({ token, userId }),
+            }
+          );
+          if (!response.ok) {
+            throw new Error("Failed to save token");
+          }
+          console.log("Token saved successfully.");
+        } catch (error) {
+          console.error("Error saving token:", error);
+        }
+      } else {
+        alert("please allow notification");
+        console.log("Notification permission denied.");
+      }
+    };
+    requestPermission();
+  }, [userId]);
 
   const handleCelebrateClick = () => {
     if (userDetails.current_coins <= 0) {

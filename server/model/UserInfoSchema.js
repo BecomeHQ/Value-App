@@ -70,6 +70,9 @@ const userInfoSchema = new Schema({
     type: String,
     required: true,
   },
+  fcm_token: {
+    type: [String],
+  },
 });
 
 const UserSchema = model("UserInfoSchema", userInfoSchema);

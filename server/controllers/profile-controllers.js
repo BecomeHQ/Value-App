@@ -149,10 +149,30 @@ const deleteUser = async (req, res) => {
   }
 };
 
+const addToken = async (req, res) => {
+  try {
+    const { token, userId } = req.body;
+    const user = await userSchema.findOne({ user_id: userId });
+    if (!user) {
+      return res.status(400).json({ message: "User not found" });
+    }
+    if (user.fcm_token.includes(token)) {
+      return res.status(200).json({ message: "Token already saved" });
+    }
+    user.fcm_token.push(token);
+    await user.save();
+    res.status(200).json({ message: "Token saved successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Something went wrong" });
+    console.log(error);
+  }
+};
+
 module.exports = {
   getUserDetails,
   getAllUsersDetails,
   getLeaderboard,
   getValidUser,
   deleteUser,
+  addToken,
 };

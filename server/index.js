@@ -16,6 +16,8 @@ const { json } = require("body-parser");
 const cron = require("node-cron");
 const UserSchema = require("./model/UserInfoSchema");
 const axios = require("axios");
+var admin = require("firebase-admin");
+var serviceAccount = require("./utils/serviceAccountKey.json");
 
 const app = express();
 const port = process.env.PORT || 8000;
@@ -47,6 +49,53 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage });
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+});
+
+const sendNotification = async (token, title, message) => {
+  console.log("Sending notification to:", token);
+  try {
+    const response = await admin.messaging().send({
+      token,
+      notification: {
+        title,
+        body: message,
+      },
+    });
+    console.log("Notification sent successfully:");
+  } catch (error) {
+    console.error("Error sending notification:", error);
+  }
+};
+
+cron.schedule("*/55 * * * * *", async () => {
+  try {
+    const users = await UserSchema.find({
+      fcm_token: { $exists: true, $ne: [] },
+    });
+    console.log("Users with FCM tokens:", users);
+    if (users.length > 0) {
+      for (const user of users) {
+        if (user.fcm_token && user.fcm_token.length > 0) {
+          for (const token of user.fcm_token) {
+            console.log("FCM token retrieved:", token);
+            await sendNotification(token, "Hello World", "How are you?");
+          }
+        }
+      }
+      console.log(`Notifications sent to ${users.length} users`);
+    } else {
+      console.log("No users found with FCM tokens");
+    }
+  } catch (error) {
+    console.error(
+      "Error retrieving FCM tokens or sending notifications:",
+      error
+    );
+  }
+});
 
 const makeSlackMessageBlock = async () => {
   const allUserDetails = await UserSchema.find({
