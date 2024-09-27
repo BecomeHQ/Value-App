@@ -71,7 +71,7 @@ const userInfoSchema = new Schema({
     required: true,
   },
   fcm_token: {
-    type: [String],
+    type: String,
   },
 });
 

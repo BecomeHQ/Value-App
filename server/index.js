@@ -65,27 +65,46 @@ const sendNotification = async (token, title, message) => {
       },
     });
     console.log("Notification sent successfully:");
+    return true;
   } catch (error) {
-    console.error("Error sending notification:", error);
+    await UserSchema.updateOne(
+      { fcm_token: token },
+      { $set: { fcm_token: "" } }
+    );
+    console.log("Token deleted from user database:", token);
+    if (error?.code === "messaging/registration-token-not-registered") {
+      console.error("Token is not registered. It might be invalid or expired.");
+      return false;
+    }
+    if (error?.code === "messaging/third-party-auth-error") {
+      console.log("Token is invalid or expired.");
+      return false;
+    } else {
+      console.error("Error sending message:", error);
+      return false;
+    }
   }
 };
 
-cron.schedule("*/55 * * * * *", async () => {
+cron.schedule("* * * * *", async () => {
   try {
     const users = await UserSchema.find({
-      fcm_token: { $exists: true, $ne: [] },
+      fcm_token: { $exists: true },
     });
     console.log("Users with FCM tokens:", users);
     if (users.length > 0) {
       for (const user of users) {
-        if (user.fcm_token && user.fcm_token.length > 0) {
-          for (const token of user.fcm_token) {
-            console.log("FCM token retrieved:", token);
-            await sendNotification(token, "Hello World", "How are you?");
-          }
+        if (user.fcm_token != "") {
+          console.log("FCM token retrieved:", user.fcm_token);
+          const sent = await sendNotification(
+            user.fcm_token,
+            `👋 Hey ${user.name}! It looks like you haven't used Trophic in a while.Jump back in and keep the momentum going! 🚀`,
+            ""
+          );
+          if (sent) console.log(`Notifications sent to ${users.length} users`);
+          else console.log("reset token happened");
         }
       }
-      console.log(`Notifications sent to ${users.length} users`);
     } else {
       console.log("No users found with FCM tokens");
     }

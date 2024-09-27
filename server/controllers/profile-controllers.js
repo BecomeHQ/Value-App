@@ -156,10 +156,10 @@ const addToken = async (req, res) => {
     if (!user) {
       return res.status(400).json({ message: "User not found" });
     }
-    if (user.fcm_token.includes(token)) {
+    if (user.fcm_token === token) {
       return res.status(200).json({ message: "Token already saved" });
     }
-    user.fcm_token.push(token);
+    user.fcm_token = token;
     await user.save();
     res.status(200).json({ message: "Token saved successfully" });
   } catch (error) {

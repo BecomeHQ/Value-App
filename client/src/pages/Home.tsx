@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState, useRef } from "react";
 import moment from "moment";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -46,14 +46,18 @@ const Home = () => {
 
   const navigator = useNavigate();
 
+  const hasRequestedPermission = useRef(false);
+
   useEffect(() => {
     const requestPermission = async () => {
+      if (hasRequestedPermission.current) return;
       const permission = await Notification.requestPermission();
       if (permission === "granted") {
         const token = await getToken(messaging, {
           vapidKey: process.env.REACT_APP_VAPID_KEY,
         });
         console.log("Notification permission granted.", token);
+        hasRequestedPermission.current = true;
         try {
           const response = await fetch(
             `${process.env.REACT_APP_API_URL}/save-token`,
@@ -73,13 +77,16 @@ const Home = () => {
         } catch (error) {
           console.error("Error saving token:", error);
         }
+      } else if (permission === "denied") {
+        console.log("Notification permission denied.");
+        alert("Please allow notification");
       } else {
-        alert("please allow notification");
+        alert("Please allow notification");
         console.log("Notification permission denied.");
       }
     };
     requestPermission();
-  }, [userId]);
+  }, []);
 
   const handleCelebrateClick = () => {
     if (userDetails.current_coins <= 0) {
