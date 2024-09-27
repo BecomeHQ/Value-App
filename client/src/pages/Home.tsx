@@ -54,7 +54,7 @@ const Home = () => {
       const permission = await Notification.requestPermission();
       if (permission === "granted") {
         const token = await getToken(messaging, {
-          vapidKey: process.env.REACT_APP_VAPID_KEY,
+          vapidKey: process.env.REACT_APP_VAPID,
         });
         console.log("Notification permission granted.", token);
         hasRequestedPermission.current = true;
