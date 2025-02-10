@@ -6,6 +6,7 @@ import { FaUser } from "react-icons/fa";
 import { FaMedal } from "react-icons/fa6";
 import { RiMedalFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
+import { BsFillSendFill } from "react-icons/bs";
 
 const styles = require("../styles/footer-navbar.module.css").default;
 
@@ -34,6 +35,11 @@ function FooterNavbar({ userid }: any) {
         <div className={styles["leaderboard-button"]}>
           <Link to={`/my-page/${userid}`}>
             <FaUser className={styles["footer-navbar-buttons"]} />
+          </Link>
+        </div>
+        <div className={styles["leaderboard-button"]}>
+          <Link to={`/send-note`}>
+            <BsFillSendFill className={styles["footer-navbar-buttons"]} />
           </Link>
         </div>
       </div>

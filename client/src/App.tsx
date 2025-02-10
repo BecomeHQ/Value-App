@@ -12,6 +12,8 @@ import AllUsersLeaderBoard from "./pages/AllUsersLeaderBoard";
 import AllUserTransaction from "./pages/AllUserTransaction";
 import UserProfile from "./pages/UserProfile";
 import AdminDashBoard from "./pages/AdminDashBoard";
+import SendNode from "./pages/SendNode";
+import CheckNotes from "./pages/CheckNotes";
 
 function App() {
   return (
@@ -26,6 +28,8 @@ function App() {
       <Route path="/send/:id" element={<SendPage />} />
       <Route path="/leaderboard" element={<AllUsersLeaderBoard />} />
       <Route path="/transactions" element={<AllUserTransaction />} />
+      <Route path="/send-note" element={<SendNode />} />
+      <Route path="/check-notes" element={<CheckNotes />} />
       <Route path="*" element={<ErrorPage />} />
     </Routes>
   );
