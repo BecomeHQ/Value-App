@@ -73,7 +73,7 @@ const KindnessJarPage = () => {
     // Fetch users and sender info when the component mounts
     const fetchUsers = async () => {
       try {
-        const response = await fetch("http://localhost:8000/all-user", {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/all-user`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -118,7 +118,7 @@ const KindnessJarPage = () => {
     ) as HTMLSelectElement;
 
     try {
-      const response = await fetch("http://localhost:8000/send-kindness-note", {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/send-kindness-note`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
