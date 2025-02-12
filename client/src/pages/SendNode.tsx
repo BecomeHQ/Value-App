@@ -20,6 +20,7 @@ const KindnessJarPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [users, setUsers] = useState([]);
   const [senderInfo, setSenderInfo] = useState({ userId: "", userName: "" });
+  const [isLoading, setIsLoading] = useState(true);
 
   const toggleModal = () => setIsModalOpen(!isModalOpen);
 
@@ -73,20 +74,26 @@ const KindnessJarPage = () => {
     // Fetch users and sender info when the component mounts
     const fetchUsers = async () => {
       try {
-        const response = await fetch("http://localhost:8000/all-user", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            company_id: "62fafe5c-851b-4a06-a906-d60b1833cc9b",
-          }),
-        });
+        setIsLoading(true);
+        const response = await fetch(
+          `${process.env.REACT_APP_API_URL}/all-user`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              company_id: "62fafe5c-851b-4a06-a906-d60b1833cc9b",
+            }),
+          }
+        );
         const data = await response.json();
         setUsers(data);
+        setIsLoading(false);
       } catch (error) {
         console.error("Failed to fetch users:", error);
         toast.error("Failed to fetch users.");
+        setIsLoading(false);
       }
     };
 
@@ -118,18 +125,21 @@ const KindnessJarPage = () => {
     ) as HTMLSelectElement;
 
     try {
-      const response = await fetch("http://localhost:8000/send-kindness-note", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          senderId: senderInfo.userId,
-          receiverId: receiverId.value,
-          kindnessType: kindnessType.value,
-          message: message.value,
-        }),
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/send-kindness-note`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            senderId: senderInfo.userId,
+            receiverId: receiverId.value,
+            kindnessType: kindnessType.value,
+            message: message.value,
+          }),
+        }
+      );
       const data = await response.json();
       console.log(data.message);
       toast.success("Kindness note sent successfully!");
@@ -138,6 +148,10 @@ const KindnessJarPage = () => {
       toast.error("Failed to send kindness note.");
     }
   };
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>

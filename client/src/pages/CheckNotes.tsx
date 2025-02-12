@@ -36,7 +36,7 @@ const CheckNotes = () => {
     const fetchNotes = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8000/get-monthly-kindness-notes`,
+          `${process.env.REACT_APP_API_URL}/get-monthly-kindness-notes`,
           {
             method: "POST",
             headers: {
