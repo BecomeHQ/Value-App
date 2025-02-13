@@ -169,7 +169,7 @@ const KindnessJarPage = () => {
             }}
           >
             <p className="note-text">
-              I thank Pooja for helping me with Duralife website visuals
+              Thankyou for the onboarding cake. I loved it! - Gratitude
             </p>
             <p className="note-label">Gratitude</p>
           </div>
@@ -183,7 +183,7 @@ const KindnessJarPage = () => {
             }}
           >
             <p className="note-text">
-              The delivery could have been better with some intervention
+              Your research added great insights to the project
             </p>
             <p className="note-label">Gratitude</p>
           </div>
@@ -197,7 +197,7 @@ const KindnessJarPage = () => {
             }}
           >
             <p className="note-text">
-              I thank Pooja for helping me with Chronicle website visuals
+              I thank you for helping me with Chronicle website visuals
             </p>
             <p className="note-label">Gratitude</p>
           </div>
@@ -211,7 +211,8 @@ const KindnessJarPage = () => {
             }}
           >
             <p className="note-text">
-              The delivery could have been better with some intervention
+              I am sorry I couldnt support you enough during the presentation. I
+              will make it better - Apology
             </p>
             <p className="note-label">Gratitude</p>
           </div>
@@ -225,7 +226,7 @@ const KindnessJarPage = () => {
             }}
           >
             <p className="note-text">
-              I thank Pooja for helping me with Chronicle website visuals
+              I thank you for helping me with Client interactions
             </p>
             <p className="note-label">Gratitude</p>
           </div>
@@ -239,7 +240,7 @@ const KindnessJarPage = () => {
             }}
           >
             <p className="note-text">
-              The delivery could have been better with some intervention
+              Thankyou for the onboarding cake. I loved it! - Gratitude
             </p>
             <p className="note-label">Gratitude</p>
           </div>
@@ -253,7 +254,7 @@ const KindnessJarPage = () => {
             }}
           >
             <p className="note-text">
-              The delivery could have been better with some intervention
+              Please use formal language in client interactions - Feedback
             </p>
             <p className="note-label">Gratitude</p>
           </div>
