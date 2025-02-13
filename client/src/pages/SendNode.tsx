@@ -26,7 +26,7 @@ const KindnessJarPage = () => {
 
   const floatingNotes: Note[] = [
     {
-      text: "I thank Pooja for helping me with Duralife website visuals",
+      text: "Please use formal language in client interactions - Feedback",
       color: "note-orange",
       rotation: "rotate-neg-12",
     },
@@ -36,17 +36,17 @@ const KindnessJarPage = () => {
       rotation: "rotate-6",
     },
     {
-      text: "I thank Pooja for helping me with Chronicle website visuals",
+      text: "Your research added great insights to the project",
       color: "note-orange",
       rotation: "rotate-3",
     },
     {
-      text: "The delivery could have been better with some intervention",
+      text: "Thankyou for the onboarding cake. I loved it!  - Gratitude",
       color: "note-blue",
       rotation: "rotate-neg-6",
     },
     {
-      text: "The delivery could have been better with some intervention",
+      text: "I am sorry I couldnt support you enough during the presentation. I will make it better - Apology",
       color: "note-purple",
       rotation: "rotate-12",
     },
@@ -323,7 +323,7 @@ const KindnessJarPage = () => {
                     <select name="kindnessType">
                       <option value="gratitude">Appreciation</option>
                       <option value="feedback">Insight</option>
-                      <option value="apology">Regret</option>
+                      <option value="apology">Apology</option>
                       <option value="others">Unspecified</option>
                     </select>
                   </label>
