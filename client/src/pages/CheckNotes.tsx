@@ -58,7 +58,7 @@ const CheckNotes = () => {
   return (
     <>
       <div
-        className={`notes-container ${!isLastDayOfMonth ? "blur-notes" : ""}`}
+        className={`notes-container`}
       >
         {notes.map((note: Note) => (
           <div key={note._id} className="note-card">
