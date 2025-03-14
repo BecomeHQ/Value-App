@@ -66,8 +66,7 @@ const CheckNotes = () => {
             <p className="note-message">{note.message}</p>
             <small className="note-date">
               {new Date(note.date).toLocaleDateString()}
-            </small
-            
+            </small>            
           </div>
         ))}
       </div>
