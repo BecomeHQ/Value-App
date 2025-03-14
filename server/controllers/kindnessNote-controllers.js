@@ -38,7 +38,7 @@ const getMonthlyKindnessNotes = async (req, res) => {
 
   try {
     const notes = await KindnessNote.find({
-      receiverId: "U6BsaZUxtjsh7rwNEhTB",
+      receiverId: {`${userId}`},
       date: { $gte: startOfMonth, $lte: endOfMonth },
     });
     res.status(200).json(notes);
