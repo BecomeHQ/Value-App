@@ -42,7 +42,7 @@ const CheckNotes = () => {
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({ userId }),
+            body: JSON.stringify({userId: userInfo.userId}),
           }
         );
         const data: Note[] = (await response.json()) as Note[];
