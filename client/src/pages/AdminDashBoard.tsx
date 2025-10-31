@@ -27,7 +27,7 @@ function AdminDashBoard() {
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*",
           },
-          body: JSON.stringify({ company_id: company_id_map.get(companyName) }),
+          body: JSON.stringify({ company_id: "62fafe5c-851b-4a06-a906-d60b1833cc9b" }),
         }
       );
       if (!response.ok) throw new Error("Error while fetching users");
