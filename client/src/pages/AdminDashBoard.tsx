@@ -73,8 +73,8 @@ function AdminDashBoard() {
     formData.append(
       "company",
       JSON.stringify({
-        id: company_id_map.get(companyName),
-        company_name: companyName,
+        id: "62fafe5c-851b-4a06-a906-d60b1833cc9b",
+        company_name: "62fafe5c-851b-4a06-a906-d60b1833cc9b",
       })
     );
     let response: any;
