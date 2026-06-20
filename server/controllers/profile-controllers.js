@@ -1,6 +1,22 @@
 const moment = require("moment");
 const userSchema = require("../model/UserInfoSchema");
 const transactionSchema = require("../model/TransactionSchema");
+
+const getFinancialYearStart = () => {
+  const now = moment();
+  const year = now.month() >= 3 ? now.year() : now.year() - 1;
+  return moment(`01-04-${year}`, "DD-MM-YYYY");
+};
+
+const getCoinsThisYear = async (userId) => {
+  const fyStart = getFinancialYearStart();
+  const transactions = await transactionSchema.find({ to_user_id: userId });
+  return transactions.filter((tx) => {
+    const txDate = moment(tx.date, "DD-MM-YYYY");
+    return txDate.isValid() && !txDate.isBefore(fyStart, "day");
+  }).length;
+};
+
 const getUserDetails = async (req, res) => {
   try {
     const { userId } = req.body;
@@ -23,11 +39,16 @@ const getUserDetails = async (req, res) => {
       problem_solving,
       current_coins,
       total_coins,
+      refreshed_coins,
       holistic,
       inquisitive,
       celebrating,
       reset_date,
     } = userData[0];
+
+    const active_coins = total_coins;
+    const my_coins = (refreshed_coins || 0) + total_coins;
+    const coins_this_year = await getCoinsThisYear(userId);
 
     res.status(200).json({
       name,
@@ -40,6 +61,10 @@ const getUserDetails = async (req, res) => {
       open_minded,
       current_coins,
       total_coins,
+      refreshed_coins,
+      active_coins,
+      my_coins,
+      coins_this_year,
       problem_solving,
       holistic,
       inquisitive,

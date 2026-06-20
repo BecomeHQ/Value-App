@@ -303,6 +303,12 @@ const Home = () => {
 
   if (isLoading) return <LoadingScreen />;
 
+  const ENCASH_THRESHOLD = 25;
+  const coinsAwayToEncash = Math.max(
+    0,
+    ENCASH_THRESHOLD - (userDetails.active_coins ?? userDetails.total_coins)
+  );
+
   const coinsArray = Array.from(
     { length: userDetails.current_coins },
     (_, index) => index + 1
@@ -386,7 +392,7 @@ const Home = () => {
                 />
               </div>
               <button onClick={handleOpen} className={styles["modal-button"]}>
-                <h4>25 coins away to encash &gt;</h4>
+                <h4>{coinsAwayToEncash} coins away to encash &gt;</h4>
               </button>
             </div>
             <div>

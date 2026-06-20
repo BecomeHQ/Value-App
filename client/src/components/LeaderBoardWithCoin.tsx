@@ -75,12 +75,34 @@ function LeaderBoardWithCoin({ userDetails, showLeaderBoard }: any) {
           <div className={style["coins__content"]}>
             <img src={coinImage} alt="" />
             <div className={style["total__coins"]}>
-              {userDetails.total_coins}
+              {userDetails.my_coins ?? userDetails.total_coins}
             </div>
           </div>
           <div className={style["coins_text"]}>
             {showLeaderBoard && "My "}Coins
           </div>
+          {showLeaderBoard && (
+            <div className={style["coins__stats"]}>
+              <div className={style["coins__stat-row"]}>
+                <div className={style["coins__stat-content"]}>
+                  <img src={coinImage} alt="" />
+                  <div className={style["coins__stat-value"]}>
+                    {userDetails.active_coins ?? userDetails.total_coins}
+                  </div>
+                </div>
+                <div className={style["coins__stat-label"]}>Active Coins</div>
+              </div>
+              <div className={style["coins__stat-row"]}>
+                <div className={style["coins__stat-content"]}>
+                  <img src={coinImage} alt="" />
+                  <div className={style["coins__stat-value"]}>
+                    {userDetails.coins_this_year ?? 0}
+                  </div>
+                </div>
+                <div className={style["coins__stat-label"]}>Coins this year</div>
+              </div>
+            </div>
+          )}
         </div>
         {showLeaderBoard && (
           <div className={style["profile__firstpart-leaderboard"]}>
