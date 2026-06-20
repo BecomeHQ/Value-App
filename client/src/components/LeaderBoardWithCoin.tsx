@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Leaderboard from "./LeaderBoard";
 import { useNavigate } from "react-router-dom";
 const coinImage = require("../assets/images/big-coin.png");
@@ -17,7 +17,7 @@ function LeaderBoardWithCoin({ userDetails, showLeaderBoard }: any) {
 
   const company_id = data?.company.id;
 
-  const fetchAllUserDetails = async () => {
+  const fetchAllUserDetails = useCallback(async () => {
     try {
       const response: any = await fetch(
         `${process.env.REACT_APP_API_URL}/all-user`,
@@ -27,7 +27,7 @@ function LeaderBoardWithCoin({ userDetails, showLeaderBoard }: any) {
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*",
           },
-          body: JSON.stringify({ company_id: "62fafe5c-851b-4a06-a906-d60b1833cc9b" }),
+          body: JSON.stringify({ company_id }),
         }
       );
       if (!response.ok) throw new Error("Error while fetching users");
@@ -44,7 +44,7 @@ function LeaderBoardWithCoin({ userDetails, showLeaderBoard }: any) {
       console.log("Error while fetching users");
       console.error(err);
     }
-  };
+  }, [company_id]);
 
   useEffect(() => {
     fetchAllUserDetails()
@@ -54,7 +54,7 @@ function LeaderBoardWithCoin({ userDetails, showLeaderBoard }: any) {
       .catch((error) => {
         console.log("Error in fetching user details", error);
       });
-  }, []);
+  }, [fetchAllUserDetails]);
 
   return (
     <>

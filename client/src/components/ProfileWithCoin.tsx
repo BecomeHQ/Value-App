@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 const coin = require("../assets/images/coin.png");
 const styles = require("../styles/profile-coin.module.css").default;
 // const img = require("../assets/images/Indu-Kanth.png").default;

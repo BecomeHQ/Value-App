@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { AiFillHome } from "react-icons/ai";
-import { BiSolidMedal } from "react-icons/bi";
 import { TbArrowsLeftRight } from "react-icons/tb";
 import { FaUser } from "react-icons/fa";
-import { FaMedal } from "react-icons/fa6";
 import { RiMedalFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { BsFillSendFill } from "react-icons/bs";

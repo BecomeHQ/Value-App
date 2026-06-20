@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import LoadingScreen from "./LoadingScreen";
@@ -16,7 +16,7 @@ function AllUsersLeaderBoard() {
 
   const company_id = data?.company.id;
 
-  const fetchAllUserDetails = async () => {
+  const fetchAllUserDetails = useCallback(async () => {
     try {
       const response: any = await fetch(
         `${process.env.REACT_APP_API_URL}/all-user`,
@@ -43,7 +43,7 @@ function AllUsersLeaderBoard() {
       console.log("Error while fetching users");
       console.error(err);
     }
-  };
+  }, [company_id]);
 
   const Leaderboard = ({ eachLeaderBoardUser, count }: any) => {
     const navigator = useNavigate();
@@ -88,7 +88,7 @@ function AllUsersLeaderBoard() {
       .catch((error) => {
         console.log("Error in fetching user details", error);
       });
-  }, []);
+  }, [fetchAllUserDetails]);
 
   if (isLoading) return <LoadingScreen />;
 

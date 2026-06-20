@@ -1,4 +1,3 @@
-import moment from "moment";
 import { ToastContainer, toast } from "react-toastify";
 import React, { useEffect, useState } from "react";
 const styles = require("../styles/admin-dashboard.module.css").default;
@@ -7,7 +6,7 @@ function AdminDashBoard() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState<any>("");
-  const [companyName, setCompanyName] = useState<any>("");
+  const [companyName, setCompanyName] = useState<any>("Become");
   const [allUserDetails, setAllUserDetails] = useState([]);
   const [selectedFile, setSelectedFile] = useState<any>(null);
   const [addData, setAddData] = useState<any>("addUser");
@@ -73,8 +72,8 @@ function AdminDashBoard() {
     formData.append(
       "company",
       JSON.stringify({
-        id: "62fafe5c-851b-4a06-a906-d60b1833cc9b",
-        company_name: "62fafe5c-851b-4a06-a906-d60b1833cc9b",
+        id: company_id_map.get(companyName),
+        company_name: companyName,
       })
     );
     let response: any;
@@ -254,6 +253,7 @@ function AdminDashBoard() {
                 <select
                   name=""
                   id=""
+                  value={companyName}
                   onChange={(e) => {
                     setCompanyName(e.target.value);
                   }}

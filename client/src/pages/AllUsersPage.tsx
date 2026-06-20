@@ -43,7 +43,7 @@ function Profile() {
       console.log("Error while fetching users");
       console.error(err);
     }
-  }, [userId]);
+  }, [userId, company_id]);
 
   const handleUserClick = (user_id: string) => {
     navigation(`/send/${user_id}`);
