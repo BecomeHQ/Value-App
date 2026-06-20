@@ -4,11 +4,6 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import FooterNavbar from "../components/FooterNavbar";
 
-interface NotePosition {
-  top: number;
-  left: number;
-}
-
 interface Note {
   text: string;
   color: string;
@@ -16,41 +11,12 @@ interface Note {
 }
 
 const KindnessJarPage = () => {
-  const [notePositions, setNotePositions] = useState<NotePosition[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [users, setUsers] = useState([]);
   const [senderInfo, setSenderInfo] = useState({ userId: "", userName: "" });
   const [isLoading, setIsLoading] = useState(true);
 
   const toggleModal = () => setIsModalOpen(!isModalOpen);
-
-  const floatingNotes: Note[] = [
-    {
-      text: "Please use formal language in client interactions - Feedback",
-      color: "note-orange",
-      rotation: "rotate-neg-12",
-    },
-    {
-      text: "The delivery could have been better with some intervention",
-      color: "note-purple",
-      rotation: "rotate-6",
-    },
-    {
-      text: "Your research added great insights to the project",
-      color: "note-orange",
-      rotation: "rotate-3",
-    },
-    {
-      text: "Thankyou for the onboarding cake. I loved it!  - Gratitude",
-      color: "note-blue",
-      rotation: "rotate-neg-6",
-    },
-    {
-      text: "I am sorry I couldnt support you enough during the presentation. I will make it better - Apology",
-      color: "note-purple",
-      rotation: "rotate-12",
-    },
-  ];
 
   const jarNotes: Note[] = [
     {
@@ -104,13 +70,6 @@ const KindnessJarPage = () => {
 
     fetchUsers();
     fetchSenderInfo();
-
-    setNotePositions(
-      floatingNotes.map(() => ({
-        top: Math.random() * 30,
-        left: Math.random() * 90,
-      }))
-    );
   }, []);
 
   const handleSendKindness = async (

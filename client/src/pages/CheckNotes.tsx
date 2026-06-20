@@ -16,18 +16,9 @@ interface UserInfo {
 
 const CheckNotes = () => {
   const [notes, setNotes] = useState<Note[]>([]);
-  const [isLastDayOfMonth, setIsLastDayOfMonth] = useState<boolean>(false);
   const [userId, setUserId] = useState<string>("");
 
   useEffect(() => {
-    const today: Date = new Date();
-    const lastDay: Date = new Date(
-      today.getFullYear(),
-      today.getMonth() + 1,
-      0
-    );
-    setIsLastDayOfMonth(today.getDate() === lastDay.getDate());
-
     const userInfo: UserInfo = JSON.parse(
       localStorage.getItem("userInfo") || "{}"
     );

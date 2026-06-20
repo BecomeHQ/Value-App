@@ -86,7 +86,7 @@ const Home = () => {
       }
     };
     requestPermission();
-  }, []);
+  }, [userId]);
 
   const handleCelebrateClick = () => {
     if (userDetails.current_coins <= 0) {
