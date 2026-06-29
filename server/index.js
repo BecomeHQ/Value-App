@@ -12,6 +12,7 @@ const multer = require("multer");
 const fs = require("fs");
 const userInfo = require("./model/UserInfoSchema");
 const moment = require("moment");
+const { MONTHLY_COINS } = require("./constants/coins");
 const { json } = require("body-parser");
 const cron = require("node-cron");
 const UserSchema = require("./model/UserInfoSchema");
@@ -213,7 +214,7 @@ app.post("/upload", upload.single("image"), async (req, res) => {
     name: req.body.name,
     email: req.body.username,
     password: req.body.password,
-    current_coins: 5,
+    current_coins: MONTHLY_COINS,
     total_coins: 0,
     refreshed_coins: 0,
     tenacious: 0,

@@ -11,6 +11,7 @@ import NotificationModal from "../components/NotificationModal";
 import FooterNavbar from "../components/FooterNavbar";
 import { messaging } from "../utils/Firebase";
 import { getToken } from "firebase/messaging";
+import { MONTHLY_COINS } from "../constants/coins";
 
 const styles = require("../styles/myfile.module.css").default;
 const logoImage = require("../assets/images/Group 26943.png");
@@ -169,7 +170,7 @@ const Home = () => {
         const difference = b.diff(a, "months");
         if (difference >= 1) {
           const data = await resetDate();
-          if (data) setUserDetails({ ...jsonData, current_coins: 5 });
+          if (data) setUserDetails({ ...jsonData, current_coins: MONTHLY_COINS });
         } else {
           setUserDetails(jsonData);
         }

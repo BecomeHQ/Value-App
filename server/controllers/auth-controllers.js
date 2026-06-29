@@ -1,5 +1,6 @@
 const userInfo = require("../model/UserInfoSchema");
 const TransactionSchema = require("../model/TransactionSchema");
+const { MONTHLY_COINS } = require("../constants/coins");
 
 const userLogin = async (req, res) => {
   try {
@@ -30,7 +31,7 @@ const addNewUser = async (req, res) => {
     name: req.body.name,
     email: req.body.username,
     password: req.body.password,
-    current_coins: 5,
+    current_coins: MONTHLY_COINS,
     total_coins: 0,
     tenacious: 0,
     resourceful: 0,

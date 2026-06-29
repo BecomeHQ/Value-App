@@ -1,12 +1,18 @@
 const userInfoSchema = require("../model/UserInfoSchema");
 const moment = require("moment");
+const { MONTHLY_COINS } = require("../constants/coins");
 
 const resetCoins = async (req, res) => {
   try {
     console.log("here");
     await userInfoSchema.updateMany(
       {},
-      { $set: { current_coins: 5, reset_date: moment().format("DD-MM-YYYY") } }
+      {
+        $set: {
+          current_coins: MONTHLY_COINS,
+          reset_date: moment().format("DD-MM-YYYY"),
+        },
+      }
     );
     res.status(200).json({ message: "Coins reset successfully." });
   } catch (error) {
