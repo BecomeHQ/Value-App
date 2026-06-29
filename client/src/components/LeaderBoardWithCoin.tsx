@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Leaderboard from "./LeaderBoard";
 import { useNavigate } from "react-router-dom";
+import { COIN_VALUE_IN_RUPEES } from "../constants/coins";
 const coinImage = require("../assets/images/big-coin.png");
 const style = require("../styles/leaderboard.module.css").default;
 
@@ -56,6 +57,9 @@ function LeaderBoardWithCoin({ userDetails, showLeaderBoard }: any) {
       });
   }, [fetchAllUserDetails]);
 
+  const myCoins = userDetails.my_coins ?? userDetails.total_coins;
+  const myCoinsInRupees = myCoins * COIN_VALUE_IN_RUPEES;
+
   return (
     <>
       <div
@@ -74,12 +78,12 @@ function LeaderBoardWithCoin({ userDetails, showLeaderBoard }: any) {
         >
           <div className={style["coins__content"]}>
             <img src={coinImage} alt="" />
-            <div className={style["total__coins"]}>
-              {userDetails.my_coins ?? userDetails.total_coins}
-            </div>
+            <div className={style["total__coins"]}>{myCoins}</div>
           </div>
           <div className={style["coins_text"]}>
-            {showLeaderBoard && "My "}Coins
+            {showLeaderBoard
+              ? `My Coins = ${myCoins} (${myCoinsInRupees} rupees)`
+              : "Coins"}
           </div>
           {showLeaderBoard && (
             <div className={style["coins__stats"]}>
