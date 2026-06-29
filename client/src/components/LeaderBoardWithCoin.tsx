@@ -57,7 +57,7 @@ function LeaderBoardWithCoin({ userDetails, showLeaderBoard }: any) {
       });
   }, [fetchAllUserDetails]);
 
-  const myCoins = userDetails.my_coins ?? userDetails.total_coins;
+  const myCoins = userDetails?.my_coins ?? userDetails?.total_coins ?? 0;
   const myCoinsInRupees = myCoins * COIN_VALUE_IN_RUPEES;
 
   return (
@@ -91,7 +91,7 @@ function LeaderBoardWithCoin({ userDetails, showLeaderBoard }: any) {
                 <div className={style["coins__stat-content"]}>
                   <img src={coinImage} alt="" />
                   <div className={style["coins__stat-value"]}>
-                    {userDetails.active_coins ?? userDetails.total_coins}
+                    {userDetails?.active_coins ?? userDetails?.total_coins ?? 0}
                   </div>
                 </div>
                 <div className={style["coins__stat-label"]}>Active Coins</div>
@@ -100,7 +100,7 @@ function LeaderBoardWithCoin({ userDetails, showLeaderBoard }: any) {
                 <div className={style["coins__stat-content"]}>
                   <img src={coinImage} alt="" />
                   <div className={style["coins__stat-value"]}>
-                    {userDetails.coins_this_year ?? 0}
+                    {userDetails?.coins_this_year ?? 0}
                   </div>
                 </div>
                 <div className={style["coins__stat-label"]}>Coins this year</div>

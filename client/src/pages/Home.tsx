@@ -170,10 +170,15 @@ const Home = () => {
         const difference = b.diff(a, "months");
         if (difference >= 1) {
           const data = await resetDate();
-          if (data) setUserDetails({ ...jsonData, current_coins: MONTHLY_COINS });
+          if (data) {
+            setUserDetails({ ...jsonData, current_coins: MONTHLY_COINS });
+          } else {
+            setUserDetails(jsonData);
+          }
         } else {
           setUserDetails(jsonData);
         }
+        setIsLoading(false);
       }
     } catch (err) {
       console.log("Error while fetching users");
@@ -236,7 +241,6 @@ const Home = () => {
       .then(() => {
         console.log("User details fetched");
         fetchUnseenTransactions();
-        setIsLoading(false);
       })
       .catch((err) => {
         console.log("error while fetching the", err);
@@ -302,16 +306,14 @@ const Home = () => {
     }
   };
 
-  if (isLoading) return <LoadingScreen />;
+  if (isLoading || !userDetails) return <LoadingScreen />;
 
   const ENCASH_THRESHOLD = 25;
-  const coinsAwayToEncash = Math.max(
-    0,
-    ENCASH_THRESHOLD - (userDetails.active_coins ?? userDetails.total_coins)
-  );
+  const activeCoins = userDetails.active_coins ?? userDetails.total_coins ?? 0;
+  const coinsAwayToEncash = Math.max(0, ENCASH_THRESHOLD - activeCoins);
 
   const coinsArray = Array.from(
-    { length: userDetails.current_coins },
+    { length: userDetails.current_coins ?? 0 },
     (_, index) => index + 1
   );
 
