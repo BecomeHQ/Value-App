@@ -46,6 +46,20 @@ const Login = () => {
         body: JSON.stringify({ email: inputEmail, password: inputPassword }),
       });
       setIsLoading(false);
+
+      if (result.status >= 500) {
+        toast.error("Server is temporarily unavailable. Please try again later.", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+        return;
+      }
+
       if (result.ok) {
         toast.success("Login Succesfull", {
           position: "top-right",
@@ -75,9 +89,9 @@ const Login = () => {
       }
     } catch (error) {
       setIsLoading(false);
-      toast.error("Internal server error!!", {
+      toast.error("Cannot reach the server. Please check your connection or try again later.", {
         position: "top-right",
-        autoClose: 2000,
+        autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
         draggable: true,

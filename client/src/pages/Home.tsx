@@ -309,7 +309,7 @@ const Home = () => {
   if (isLoading || !userDetails) return <LoadingScreen />;
 
   const ENCASH_THRESHOLD = 25;
-  const activeCoins = userDetails.active_coins ?? userDetails.total_coins ?? 0;
+  const activeCoins = userDetails.total_coins ?? 0;
   const coinsAwayToEncash = Math.max(0, ENCASH_THRESHOLD - activeCoins);
 
   const coinsArray = Array.from(

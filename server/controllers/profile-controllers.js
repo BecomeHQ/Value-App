@@ -47,7 +47,7 @@ const getUserDetails = async (req, res) => {
     } = userData[0];
 
     const active_coins = total_coins;
-    const my_coins = (refreshed_coins || 0) + total_coins;
+    const my_coins = total_coins;
     const coins_this_year = await getCoinsThisYear(userId);
 
     res.status(200).json({
